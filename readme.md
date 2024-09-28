@@ -83,6 +83,32 @@ let x: P = {
 ```
 
 ## Advanced stuff
+
+### Conditional types
+
+Here a sample that uses conditional types and never to flatten an array:
+
+```typescript
+type Flatten<T> = T extends any[] ? T[number] : T;
+ 
+// Extracts out the element type.
+type Str = Flatten<string[]>;
+     
+type Str = string
+ 
+// Leaves the type alone.
+type Num = Flatten<number>;
+```
+
+Infer:
+```typescript
+**
+ * Obtain the return type of a function type
+ */
+type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any;
+
+```
+
 ### Mapped types
 
 In the following example, *OptionsFlags\<Type>* replaces all properties with boolean properties:
