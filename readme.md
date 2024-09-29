@@ -42,8 +42,25 @@ type Capitalize<S extends string> = intrinsic;
 ```
 
 ## Basics
-### keyof
 
+### strange types
+Pin down to a single value. 
+
+```typescript
+type X = 13;
+const p: X = 13;
+const z: X = 12; // error
+```
+
+String is more common:
+
+```typescript
+type X = 'a' | 'b';
+const p: X = 'a';
+const z: X = 'some random string'; // error
+```
+
+### keyof
 
 ```typescript
 type SampleType = {
@@ -82,6 +99,27 @@ let x: P = {
 }
 ```
 
+### Tuples
+```typescript
+let ourTuple: [number, boolean, string] = [123,true,'hello'];
+```
+Tuples with a rest:
+
+```typescript
+let ourTuple: [number, boolean, string, ...any[]] = [123,true,'hello', 2131231, 2344];
+```
+
+In the example above, the rest is declared as ...any[]. This is equivalent to  ...any. If you inspect the type of ourTuple in the sample below, it will be *let ourTuple: [number, boolean, string, ...any[]]*
+
+```typescript
+let ourTuple: [number, boolean, string, ...any] = [123,true,'hello', 2131231, 2344]; // same as let ourTuple: [number, boolean, string, ...any[]]
+```
+
+### Array<any> vs any[]
+See https://stackoverflow.com/questions/15860715/typescript-array-vs-any
+
+*Array\<any>* is equivalent to *any[]*
+
 ## Advanced stuff
 
 ### Conditional types
@@ -99,14 +137,38 @@ type Str = string
 // Leaves the type alone.
 type Num = Flatten<number>;
 ```
+#### the infer keyword
+The infer keyword can be used in conditional types. Let typescript do its best to infer the type. 
+Here a very basic example to get the type of the first element in a tuple.
 
-Infer:
+```typescript
+type MyTuple = [boolean, number];
+type First<T> = T extends [infer FirstElem, any] ? FirstElem : never; // boolean
+const x: First<MyTuple> = true;
+```
+
+
+In this example, the type of the return value of a function is evaluated:
 ```typescript
 **
  * Obtain the return type of a function type
  */
 type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any;
 
+```
+
+Here another basic example with string type:
+
+```typescript
+type ExtractStringType<T> = T extends `${infer U}` ? U : never;
+const x: ExtractStringType<'hello'> = 'hello';
+```
+
+There can be nested conditional types:
+```typescript
+type ExtractNumberType<T> = T extends `${infer U}` ? `${U}` extends `${number}` ? U : never : never;
+const p: ExtractNumberType<'123'> = '123';
+const t: ExtractNumberType<'abc'> = 'abc'; // error!! not possible, only numbers allowed
 ```
 
 ### Mapped types
