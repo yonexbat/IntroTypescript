@@ -43,7 +43,7 @@ type Capitalize<S extends string> = intrinsic;
 
 ## Basics
 
-### strange types
+### like a constant
 Pin down to a single value. 
 
 ```typescript
