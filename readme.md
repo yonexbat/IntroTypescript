@@ -115,7 +115,7 @@ In the example above, the rest is declared as ...any[]. This is equivalent to  .
 let ourTuple: [number, boolean, string, ...any] = [123,true,'hello', 2131231, 2344]; // same as let ourTuple: [number, boolean, string, ...any[]]
 ```
 
-### Array<any> vs any[]
+### Array\<any\> vs any[]
 See https://stackoverflow.com/questions/15860715/typescript-array-vs-any
 
 *Array\<any>* is equivalent to *any[]*
