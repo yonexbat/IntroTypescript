@@ -27,10 +27,16 @@ const json = JSON.parse("55");  // json has type any
 ```
 
 ### undefined
+*undefined* means that variable has not been defined. The undefined type is a primitive type that has only one value: *undefined*
 
 ### null
+The *null* value represents the intentional absence of any object value. Indication that a variable points to no object.
 
 ### never
+Type *never* has never a value.
+```typescript
+ const x: never = undefined; // Will not compile. There is no way to assign a value to a never variable.
+```
 
 ### intrinsic
 The implementation of this type is provided by the compiler. For example:
