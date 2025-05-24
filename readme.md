@@ -66,12 +66,12 @@ Samples:
 type Sample = {};
 const x1: Sample = "abc";
 const x2: Sample = 4;
-const x3: Sample = null; //not valid
 ```
 
 Invalid sample:
 ```typescript
 type Sample = {}; //not valid
+const x3: Sample = null; //not valid
 ```
 
 Sometimes, for autocomplete, libraries use this trick:
