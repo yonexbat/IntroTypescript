@@ -59,7 +59,7 @@ The implementation of this type is provided by the compiler. For example:
 type Capitalize<S extends string> = intrinsic;
 ```
 ### Empty object type
-It represents any value that is not __null__ or __undefined__. 
+{}: It represents any value that is not __null__ or __undefined__. 
 
 Samples:
 ```typescript
@@ -164,7 +164,7 @@ See https://stackoverflow.com/questions/15860715/typescript-array-vs-any
 
 ### Conditional types
 
-Here a sample that uses conditional types and never to flatten an array:
+Here a sample that uses conditional types to flatten an array:
 
 ```typescript
 type Flatten<T> = T extends any[] ? T[number] : T;
