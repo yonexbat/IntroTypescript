@@ -17,9 +17,21 @@ let m1 = 'hello';
 
 The type can be infered by the declaration, so the type is implicitly defined.
 
-## Unions
+## Unions and intersection types
+This sample here clarifies the difference between union (|) and intersection (&)
+
+```typescript
+type MyUnion1 = {a: string} | {b: string};
+const x1_all: MyUnion1 = {a: "hello", b: "world"}
+const x1_onlyOne: MyUnion1 = {a: "hello"} 
+
+type MyUnion2 = {a: string} & {b: string};
+const x2_all: MyUnion2 = {a: "hello", b: "world"}
+const x2_onlyOne: MyUnion2 = {a: "hello"} // Error in typescript here
+```
 
 ## Special types
+
 ### any
 
 ```typescript
@@ -46,6 +58,28 @@ The implementation of this type is provided by the compiler. For example:
  */
 type Capitalize<S extends string> = intrinsic;
 ```
+### Empty object type
+It represents any value that is not __null__ or __undefined__. 
+
+Samples:
+```typescript
+type Sample = {};
+const x1: Sample = "abc";
+const x2: Sample = 4;
+const x3: Sample = null; //not valid
+```
+
+Invalid sample:
+```typescript
+type Sample = {}; //not valid
+```
+
+Sometimes, for autocomplete, libraries use this trick:
+```typescript
+type Sample = "a" | "b" | string & {};
+const x: Sample = "anystring really"
+```
+VS Code will help with autocomplete in editor. It proposes a or b or anystring. Bit of a hack though.
 
 ## Basics
 
