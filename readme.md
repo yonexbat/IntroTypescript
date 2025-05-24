@@ -70,7 +70,7 @@ const x2: Sample = 4;
 
 Invalid sample:
 ```typescript
-type Sample = {}; //not valid
+type Sample = {};
 const x3: Sample = null; //not valid
 ```
 
