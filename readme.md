@@ -164,15 +164,28 @@ See https://stackoverflow.com/questions/15860715/typescript-array-vs-any
 
 ### Conditional types
 
+Very simple sample
+```typescript
+interface Animal {
+  makeNoise(): void;
+}
+interface Cat extends Animal {
+  miau(): void;
+}
+ 
+type Example1 = Cat extends Animal ? number : string; //Will be number
+const p: Example1 = 33;
+```
+
 Here a sample that uses conditional types to flatten an array:
 
 ```typescript
 type Flatten<T> = T extends any[] ? T[number] : T;
  
-// Extracts out the element type.
+// Extracts out the element type, the result is just the string type
 type Str = Flatten<string[]>;
      
-type Str = string
+const x: Str = "abc";
  
 // Leaves the type alone.
 type Num = Flatten<number>;
