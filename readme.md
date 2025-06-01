@@ -160,6 +160,74 @@ See https://stackoverflow.com/questions/15860715/typescript-array-vs-any
 
 *Array\<any>* is equivalent to *any[]*
 
+## Value is optional
+
+In the following sample, the value is optional, but key is not:
+
+```typescript
+type A = {
+  keyIsRequired: string | undefined
+}
+
+// error!, key keyIsRequired is not optional, only its value is:
+const a: A = {
+
+};
+
+// ok:
+const a: A = {
+  keyIsRequired: undefined
+};
+```
+
+### Utility types
+This types are available globally in any typescript project.
+#### Pick and Omit ####
+Work on the structure of objects
+```typescript
+type Sample = {
+  a: string,
+  b: number,
+  c: Date
+};
+
+type A = Omit<Sample, "a" | "b">; // Will result in {c: Date}
+const x: A = {c: new Date()};
+
+type B = Pick<Sample, "a">; // Will result in {a: string}
+const y: B = {a: "hello"};
+```
+
+#### Extract and Exclude
+Work on unions
+
+```typescript
+type Sample1 = {
+  discriminator: "A",
+  b: number,
+  c: Date
+};
+
+type Sample2 = {
+  discriminator: "B",
+  d: number,
+};
+
+type SampleUnion = Sample1 | Sample2;
+
+type A = Extract<SampleUnion, {discriminator: "A"}>; // Will result type Sample1
+const x: A = {
+  discriminator:  "A",
+  b: 344,
+  c: new Date()
+}
+type B = Exclude<SampleUnion, {discriminator: "A"}>; // Will result type Sample2
+const y: B = {
+  discriminator:  "B",
+  d: 23
+}
+```
+
 ## Advanced stuff
 
 ### Conditional types
