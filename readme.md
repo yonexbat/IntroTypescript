@@ -356,3 +356,49 @@ let x: GetterSample = {
 };
 ```
 
+### Symbol
+In typescript, you can create a new symbol like this:
+
+```typescript
+const mySymbol: unique symbol = Symbol();
+```
+
+Symbols can be used as keys to objects:
+
+```typescript
+let myObj = {[mySymbol]: "hello world"};
+console.log(myObj[mySymbol]);
+```
+
+The following statement just declares a symbol, but does not really create a symbol. It compiles to nothing (when compiled to javascript):
+```typescript
+declare const metersSymbol: unique symbol;
+```
+
+#### Branded types
+Symbols can be used for branded types. In the following sample, no symbol is really created in the resulting code. It just checkts type on compile time, not runtime.
+In this sample, it prevents the user to confuse ther parameters ind method addMeters. The first
+argument is of type *meters* and the second argument must be of type *kilometers*.
+
+```typescript
+declare const metersSymbol: unique symbol;
+declare const kilometersSymbol: unique symbol;
+
+type Meters = number & { [metersSymbol]: void };
+type Kilometers = number & { [kilometersSymbol]: void };
+
+function meters(value: number): Meters {
+  return value as Meters;
+}
+
+function kilometers(value: number): Kilometers {
+  return value as Kilometers;
+}
+
+function addMeters(value1: Meters, value2: Kilometers): Meters
+{
+  return (value1 + value2*1000) as Meters;
+}
+
+console.log(addMeters(meters(23), kilometers(1)));
+```
